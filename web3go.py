@@ -13,7 +13,7 @@ class Web3Go:
         self.address = Account.from_key(key).address
         self.auth_token = None
 
-    async def __aenter__(self):
+    async def __aenter__(self, *args):
         user_agent = pyuseragents.random()
         headers = {
                 'Accept': 'application/json, text/plain, */*',
@@ -32,7 +32,7 @@ class Web3Go:
         self.session = aiohttp.ClientSession(headers=headers)
         return self
 
-    async def __aexit__(self):
+    async def __aexit__(self, *args):
         await self.session.close()
 
     @staticmethod
