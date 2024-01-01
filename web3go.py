@@ -113,8 +113,3 @@ class Web3Go:
     @staticmethod
     def get_utc_timestamp():
         return datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
-
-
-
-
-
