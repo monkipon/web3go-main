@@ -12,8 +12,7 @@ async def process_private_key(private_key, proxies, semaphore):
         proxy = random.choice(proxies) if proxies else None
         async with Web3Go(private_key, proxy) as web3go_bot:
             result = await web3go_bot.claim()
-            proxy_pass = web3go_bot.proxy.split('@')
-            print(f"{web3go_bot.address} | {result} | {proxy_pass[1]}")
+            print(f"{web3go_bot.address} | {result} | {web3go_bot.proxy_ip}")
 
 
 async def main():
