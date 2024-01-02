@@ -12,6 +12,9 @@ class Web3Go:
         self.key = key
         self.address = Account.from_key(key).address
         self.auth_token = None
+        if self.proxy is not None:
+            self.proxy_ip = self.proxy.split('@')[1]
+        else: self.proxy_ip = 'No Proxy'
 
     async def __aenter__(self, *args):
         user_agent = pyuseragents.random()
