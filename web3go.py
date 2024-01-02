@@ -105,6 +105,13 @@ class Web3Go:
         except ClientError as e:
             print(f"Error in claim request: {e}")
             return ""
+            
+    async def get_streak_days(self):
+        await self.web_challenge()
+        url = 'https://reiki.web3go.xyz/api/checkin/streakdays'
+        params = {'day': Web3Go.get_current_date()}
+        response = await self.session.get(url, params=params, proxy=self.proxy)
+        return await response.text()
         
     @staticmethod
     def get_current_date():
