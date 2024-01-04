@@ -116,6 +116,14 @@ class Web3Go:
         response = await self.session.get(url, params=params, proxy=self.proxy)
         return await response.text()
         
+    async def get_info_about(self):
+        url = 'https://reiki.web3go.xyz/api/GoldLeaf/me'
+        if self.auth_token is None:
+            await self.web_challenge()
+        response = await self.session.get(url, proxy=self.proxy)
+        response_data = await response.text()
+        return response_data
+        
     @staticmethod
     def get_current_date():
         return datetime.datetime.now().strftime("%Y-%m-%d")
