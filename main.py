@@ -13,7 +13,8 @@ async def process_private_key(private_key, proxies, semaphore):
         async with Web3Go(private_key, proxy) as web3go_bot:
             result = await web3go_bot.claim()
             streak = await web3go_bot.get_streak_days()
-            print(f"{web3go_bot.address} | {result} | {streak} |{web3go_bot.proxy_ip}")
+            leafs = await web3go_bot.get_info_about()
+            print(f"{web3go_bot.address} | {result} | {streak} | {leafs} | {web3go_bot.proxy_ip}")
 
 
 def make_art():
