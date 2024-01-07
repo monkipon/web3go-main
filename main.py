@@ -9,11 +9,11 @@ from utils import read_private_keys, read_proxies
 
 async def process_private_key(private_key, proxies, semaphore):
     async with semaphore:
-        proxy = random.choice(proxies) if proxies else None
-        async with Web3Go(private_key, proxy) as web3go_bot:
+        async with Web3Go(private_key, proxies) as web3go_bot:
             result = await web3go_bot.claim()
             streak = await web3go_bot.get_streak_days()
             leafs = await web3go_bot.get_info_about()
+            # print(f"{web3go_bot.address} | {leafs} | {web3go_bot.proxy_ip}")
             print(f"{web3go_bot.address} | {result} | {streak} | {leafs} | {web3go_bot.proxy_ip}")
 
 
@@ -33,7 +33,8 @@ async def main():
 
     semaphore = asyncio.Semaphore(10)
 
-    tasks = [process_private_key(private_key, proxies, semaphore) for private_key in private_keys]
+    tasks = [process_private_key(private_key, proxies[i % len(proxies)], semaphore) for i, private_key in
+             enumerate(private_keys)]
 
     await asyncio.gather(*tasks)
 
